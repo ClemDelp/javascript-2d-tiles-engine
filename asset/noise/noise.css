@@ -1,11 +1,19 @@
+/* la map */
 #container .el{
     display:block;
     width:10px;
     height:10px;
     background:url("../img/sprite.png") 0 0 no-repeat;
 }
-#container .grass1{background-position:0px 0px;}
+/* les elements */
 #container .grass2{background-position:-30px 0px;}
-#container .water{background-position:-100px -20px;}
 #container .ground1{background-position:-30px -60px;}
 #container .ground2{background-position:-30px -500px;}
+/* les elements */
+#container .grass1{background-position:0px 0px;}
+#container .water{background-position:-33px -840px;}
+/*transistion*/
+#container .wg_y_top{background-position:-33px -865px;}
+#container .wg_y_bottom{background-position:-33px -810px;}
+#container .wg_x_left{background-position:-60px -850px;}
+#container .wg_x_right{background-position:-5px -850px;}

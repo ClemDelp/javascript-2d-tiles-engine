@@ -1,4 +1,36 @@
-var noise     = generateNoise();
+////////////////////////////////////////////
+// LEGEND
+// 0 -> water
+// 'wg_y_top' -> transition water-grass-y-top
+// 'wg_y_bottom' -> transition water-grass-y-bottom
+// 'wg_x_left' -> transition water-grass-y-left
+// 'wg_x_right' -> transition water-grass-y-right
+// 0.2 -> grass1
+// 0.4 -> grass2
+// 0.6 -> ground1
+// 0.8 -> ground2
+
+////////////////////////////////////////////
+// Contruction de la matrice
+////////////////////////////////////////////
+var noise = generateNoise();
+////////////////////////////////////////////
+// get transitions
+////////////////////////////////////////////
+// eau terre 
+var wg_y_top = mlib.getYArrayInMatrix(1,0.6,noise);
+var wg_y_bottom = mlib.getYArrayInMatrix(0.6,1,noise);
+var wg_x_left = mlib.getXArrayInMatrix(1,0.6,noise);
+var wg_x_right = mlib.getXArrayInMatrix(0.6,1,noise);
+
+////////////////////////////////////////////
+// Application des transitions
+////////////////////////////////////////////
+noise = mlib.setValToCoordinates('wg_y_top',noise,wg_y_top);
+noise = mlib.setValToCoordinates('wg_y_bottom',noise,wg_y_bottom);
+noise = mlib.setValToCoordinates('wg_x_left',noise,wg_x_left);
+noise = mlib.setValToCoordinates('wg_x_right',noise,wg_x_right);
+
 // var canvas     = document.getElementById('noise_1');
 // var context = canvas.getContext('2d');
 
@@ -6,12 +38,21 @@ for(x = 0; x < noise.length; x++)
 {
     for(y = 0; y < noise[x].length; y++)
     {
-        var color = Math.round((255 * noise[x][y]));
+        //var color = Math.round((255 * noise[x][y]));
+
+        ////////////////////////////////////////////
+        // Choix des classes
         var className = "ground2 el";
+        if(noise[x][y] == 'wg_y_top') className = "wg_y_top el";
+        if(noise[x][y] == 'wg_y_bottom') className = "wg_y_bottom el";
+        if(noise[x][y] == 'wg_x_left') className = "wg_x_left el";
+        if(noise[x][y] == 'wg_x_right') className = "wg_x_right el";
         if(noise[x][y] == 0.2) className = "ground1 el";
         if(noise[x][y] == 0.4) className = "grass2 el";
         if(noise[x][y] == 0.6) className = "grass1 el";
         if(noise[x][y] == 1) className = "water el";
+        
+
         $('<div>', {id : 'maDiv', class: className, style: 'position:absolute;width:30px;height:30px;top:'+x*30+'px;left:'+y*30+'px;'}).appendTo($(content));
 
         // context.fillStyle = "rgb("+color+", "+color+", "+color+")";

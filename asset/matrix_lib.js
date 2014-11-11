@@ -1,7 +1,4 @@
 var mlib = {
-	//////////////////////////////
-  	// Matrix manipulation
-  	//////////////////////////////
  	displayMatrice: function(matrice){
 		matrice.map(function(line){
 			if(line.length == undefined)line = [line];
@@ -77,7 +74,6 @@ var mlib = {
  		return [largeur,Longueur];
  	},
  	matriceFusion : function(m1,m2){
-
  		var i = 0;
  		var first = [];
  		var second = [];
@@ -100,7 +96,6 @@ var mlib = {
  			l = l+1;
  		});
  		var m5 = mlib.completeEmptyMatrice(m4);
-
  		return m5;
  	},
  	completeEmptyMatrice : function(matrice){
@@ -168,9 +163,6 @@ var mlib = {
 		});
  	},
  	positionMatriceIntoMatrice : function(main,m,pos){
- 		mlib.displayMatrice(main)
- 		mlib.displayMatrice(m)
-
  		var result = [];
  		var delta_x = pos[0];
  		var delta_y = pos[1];
@@ -193,7 +185,50 @@ var mlib = {
  			h_main = 0;
  			l_main = l_main+1;	
  		}
- 		mlib.displayMatrice(main)
  		return main;
  	},
+ 	getYArrayInMatrix : function(y1,y2,matrice){
+ 		var result = [];
+ 		for(l = 0; l < matrice.length; l++){
+		    for(c = 0; c < matrice[l].length; c++){
+		        if(matrice[l][c] == y1){
+		        	if(l+1 < matrice.length){
+		        		if(matrice[l+1][c] == y2){
+		        			// On prend les coordonnees du plus petit
+		        			if(matrice[l][c] < matrice[l+1][c]) result.unshift([c,l]);
+		        			else result.unshift([c,l+1]);
+		        		} 	
+		        	}
+		        }
+		    }
+		}
+
+		return result;
+ 	},
+ 	getXArrayInMatrix : function(x1,x2,matrice){
+ 		var result = [];
+ 		for(l = 0; l < matrice.length; l++){
+		    for(c = 0; c < matrice[l].length; c++){
+		        if(matrice[l][c] == x1){
+		        	if(c+1 < matrice[0].length){
+		        		if(matrice[l][c+1] == x2){
+		        			// On prend les coordonnees du plus petit
+		        			if(matrice[l][c] < matrice[l][c+1]) result.unshift([c,l]);
+		        			else result.unshift([c+1,l]);
+		        		} 	
+		        	}
+		        }
+		    }
+		}
+
+		return result;
+ 	},
+ 	setValToCoordinates : function(val,matrice,coordinates){
+ 		var result = matrice;
+ 		coordinates.forEach(function(c){
+ 			matrice[c[1]][c[0]] = val;
+ 		});
+
+		return result;
+ 	}
  }
