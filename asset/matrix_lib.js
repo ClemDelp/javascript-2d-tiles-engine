@@ -223,6 +223,37 @@ var mlib = {
 
 		return result;
  	},
+ 	getDiagoArrayIntoMatrix : function(vector,direction,matrix){
+ 		// vector is an vecto with two value : [1,2] or [2,1]
+ 		// dierction can be no-se (nord ouest - sud est) or ne-so (...)
+ 		var result = [];
+ 		for(l = 0; l < matrix.length; l++){
+		    for(c = 0; c < matrix[l].length; c++){
+		        if(matrix[l][c] == vector[0]){
+		        	if(direction == "no-se"){
+		        		if((c+1 < matrix[0].length)&&(l+1 < matrix.length)){
+			        		if(matrix[l+1][c+1] == vector[1]){
+			        			// On prend les coordonnees du plus petit
+			        			if(matrix[l][c] < matrix[l+1][c+1]) result.unshift([c,l]);
+			        			else result.unshift([c+1,l+1]);
+			        		} 	
+			        	}
+		        	}else if(direction == "ne-so"){
+		        		if((c-1 >= 0)&&(l+1 < matrix.length)){
+			        		if(matrix[l+1][c-1] == vector[1]){
+			        			// On prend les coordonnees du plus petit
+			        			if(matrix[l][c] < matrix[l+1][c-1]) result.unshift([c,l]);
+			        			else result.unshift([c-1,l+1]);
+			        		} 	
+			        	}
+		        	}
+		        	
+		        }
+		    }
+		}
+
+		return result;
+ 	},
  	setValToCoordinates : function(val,matrice,coordinates){
  		var result = matrice;
  		coordinates.forEach(function(c){

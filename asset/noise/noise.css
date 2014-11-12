@@ -12,8 +12,22 @@
 /* les elements */
 #container .grass1{background-position:0px 0px;}
 #container .water{background-position:-33px -840px;}
-/*transistion*/
+/*transistion Y*/
 #container .wg_y_top{background-position:-33px -865px;}
-#container .wg_y_bottom{background-position:-33px -810px;}
+#container .wg_y_bottom{background-position:-33px -802px;}
 #container .wg_x_left{background-position:-60px -850px;}
-#container .wg_x_right{background-position:-5px -850px;}
+#container .wg_x_right{background-position:-2px -850px;}
+/*transition X*/
+
+/*transition Diago*/
+#container .wg_angle_interne_no{background-position:-0px -802px;}
+#container .wg_angle_interne_ne{background-position:-60px -802px;}
+
+#container .wg_angle_interne_so{background-position:-0px -865px;}
+#container .wg_angle_interne_se{background-position:-60px -865px;}
+
+#container .wg_angle_externe_ne{background-position:-96px -896px;}
+#container .wg_angle_externe_no{background-position:-126px -896px;}
+
+#container .wg_angle_externe_so{background-position:-128px -865px;}
+#container .wg_angle_externe_se{background-position:-96px -865px;}
