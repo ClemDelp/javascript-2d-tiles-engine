@@ -6,17 +6,16 @@
     background:url("../img/sprite.png") 0 0 no-repeat;
 }
 /* les elements */
-#container .grass2{background-position:-30px 0px;}
-#container .ground1{background-position:-30px -60px;}
-#container .ground2{background-position:-30px -500px;}
-/* les elements */
 #container .grass1{background-position:0px 0px;}
-#container .water{background-position:-33px -840px;}
+#container .grass2{background-position:-32px 0px;}
+#container .ground1{background-position:-32px -64px;}
+#container .ground2{background-position:-32px -480px;}
+#container .water{background-position:-32px -832px;}
 /*transistion Y*/
-#container .wg_y_top{background-position:-33px -865px;}
-#container .wg_y_bottom{background-position:-33px -802px;}
-#container .wg_x_left{background-position:-60px -850px;}
-#container .wg_x_right{background-position:-2px -850px;}
+#container .wg_y_top{background-position:-32px -864px;}
+#container .wg_y_bottom{background-position:-32px -800px;}
+#container .wg_x_left{background-position:-64px -832px;}
+#container .wg_x_right{background-position:-0px -832px;}
 /*transition X*/
 
 /*transition Diago*/

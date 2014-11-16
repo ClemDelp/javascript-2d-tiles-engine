@@ -3,11 +3,31 @@
 <head>
     <title>Tile easy</title>
     <link rel="stylesheet" href="asset/noise/noise.css">
-
+    <!-- Jquery lib & css -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <style>
+	    td, tr {
+		   border: 1px solid red;
+		}
+		#tab{
+			background-image:url(asset/img/sprite.png);
+			width:256px;
+			height:13632px;
+			background-repeat:no-repeat;
+			border-spacing: 0px;
+		}
+		.element{
+			position:relative;
+			float:left;
+		}
+    </style>
 </head>
 <body>
-
-	<div id="container">
+	<table id="tab" class="element"></table>
+	<div style="width:200px" class="element"><br></div>
+	<div id="container" class="element">
         <div id="content">
             <b>transition water-grass en Y</b>
             <div id="maDiv" class="water el" style="width:30px;height:30px;"></div>
@@ -65,7 +85,11 @@
 
         </div>
     </div>
-
+	<script type="text/javascript">
+		for(i = 0;i<426;i++){
+			$('#tab').append("<tr><td title='0,"+i*32+"'></td><td title='-32,-"+i*32+"'></td><td title='-64,-"+i*32+"'></td><td title='-96,-"+i*32+"'></td><td title='-128,-"+i*32+"'></td><td title='-160,-"+i*32+"'></td><td title='-192,-"+i*32+"'></td><td title='-224,-"+i*32+"'></td></tr>")
+		}
+	</script>
 </body>
 </html>
 
