@@ -13,7 +13,7 @@
 ////////////////////////////////////////////
 // Contruction de la matrice
 ////////////////////////////////////////////
-var noise = generateNoise();
+var noise = generateNoise(50, 10);
 console.log('noissssse ---> ', noise)
 ////////////////////////////////////////////
 // get transitions
@@ -60,7 +60,7 @@ for(x = 0; x < noise.length; x++)
         // context.fillRect(x*10, y*10, 100, 100);
     }
 }
-function generateNoise() {
+function generateNoise(squareSize, level) {
     var noiseArr = new Array();
 
     for(i = 0; i <= 5; i++)
@@ -78,15 +78,14 @@ function generateNoise() {
         }
     }
 
-    return(flatten(interpolate(noiseArr)));
+    return(flatten(interpolate(noiseArr, squareSize), level));
 }
 
-function interpolate(points)
-{
+function interpolate(points, squareSize) {
     var noiseArr = new Array()
     var x = 0;
     var y = 0;
-    var nbr = 50
+    var nbr = squareSize // 50
     console.log(nbr)
     var perc = nbr / 5
     for(i = 0; i < nbr; i++)
@@ -118,10 +117,9 @@ function interpolate(points)
     return(noiseArr);
 }
 
-function flatten(points)
-{
-    var step = 0.1
+function flatten(points, level) {
     var maxVal = 1
+    var step = maxVal / level // 0.1
     var loopSize = maxVal / step
 
     var noiseArr = new Array()
