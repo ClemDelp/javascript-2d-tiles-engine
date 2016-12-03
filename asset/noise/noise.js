@@ -13,8 +13,7 @@
 ////////////////////////////////////////////
 // Contruction de la matrice
 ////////////////////////////////////////////
-var noise = generateNoise(50, 10);
-console.log('noissssse ---> ', noise)
+var noise = generateNoise(20, 6, true);
 ////////////////////////////////////////////
 // get transitions
 ////////////////////////////////////////////
@@ -60,7 +59,7 @@ for(x = 0; x < noise.length; x++)
         // context.fillRect(x*10, y*10, 100, 100);
     }
 }
-function generateNoise(squareSize, level) {
+function generateNoise(squareSize, level, revert) {
     var noiseArr = new Array();
 
     for(i = 0; i <= 5; i++)
@@ -78,7 +77,7 @@ function generateNoise(squareSize, level) {
         }
     }
 
-    return(flatten(interpolate(noiseArr, squareSize), level));
+    return(flatten(interpolate(noiseArr, squareSize), level, revert));
 }
 
 function interpolate(points, squareSize) {
@@ -117,30 +116,28 @@ function interpolate(points, squareSize) {
     return(noiseArr);
 }
 
-function flatten(points, level) {
+function flatten(points, level, revert) {
     var maxVal = 1
     var step = maxVal / level // 0.1
-    var loopSize = maxVal / step
-
     var noiseArr = new Array()
     for(i = 0; i < points.length; i++)
     {
         noiseArr[i] = new Array()
-        for(j = 0; j < points[i].length; j++)
-        {
-          for (k = 0; k <= loopSize; k++) {
+        for(j = 0; j < points[i].length; j++) {
+          for (k = 0; k <= level; k++) {
             var val = Math.round(step * k * 10)/10
             if (val === maxVal) {
-              noiseArr[i][j] = maxVal;
+              if (revert) noiseArr[i][j] = maxVal;
+              else noiseArr[i][j] = level;
               break
             } else if(points[i][j] < val) {
-              noiseArr[i][j] = k;
+              if (revert) noiseArr[i][j] = (level + 1) - k;
+              else noiseArr[i][j] = k;
+
               break
             }
           }
-          console.log(noiseArr[i][j])
         }
     }
-
     return(noiseArr);
 }
