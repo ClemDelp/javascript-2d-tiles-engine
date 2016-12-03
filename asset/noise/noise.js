@@ -14,10 +14,11 @@
 // Contruction de la matrice
 ////////////////////////////////////////////
 var noise = generateNoise();
+console.log('noissssse ---> ', noise)
 ////////////////////////////////////////////
 // get transitions
 ////////////////////////////////////////////
-// eau terre 
+// eau terre
 var wg_y_top = mlib.getYArrayInMatrix(1,0.6,noise);
 var wg_y_bottom = mlib.getYArrayInMatrix(0.6,1,noise);
 var wg_x_left = mlib.getXArrayInMatrix(1,0.6,noise);
@@ -47,11 +48,11 @@ for(x = 0; x < noise.length; x++)
         if(noise[x][y] == 'wg_y_bottom') className = "wg_y_bottom el";
         if(noise[x][y] == 'wg_x_left') className = "wg_x_left el";
         if(noise[x][y] == 'wg_x_right') className = "wg_x_right el";
-        if(noise[x][y] == 0.2) className = "ground1 el";
-        if(noise[x][y] == 0.4) className = "grass2 el";
-        if(noise[x][y] == 0.6) className = "grass1 el";
+        if(noise[x][y] == 2) className = "ground1 el";
+        if(noise[x][y] == 4) className = "grass2 el";
+        if(noise[x][y] == 6) className = "grass1 el";
         if(noise[x][y] == 1) className = "water el";
-        
+
 
         $('<div>', {id : 'maDiv', class: className, style: 'position:absolute;width:30px;height:30px;top:'+x*30+'px;left:'+y*30+'px;'}).appendTo($(content));
 
@@ -59,9 +60,7 @@ for(x = 0; x < noise.length; x++)
         // context.fillRect(x*10, y*10, 100, 100);
     }
 }
-
-function generateNoise()
-{
+function generateNoise() {
     var noiseArr = new Array();
 
     for(i = 0; i <= 5; i++)
@@ -87,59 +86,61 @@ function interpolate(points)
     var noiseArr = new Array()
     var x = 0;
     var y = 0;
-
-    for(i = 0; i < 150; i++)
+    var nbr = 50
+    console.log(nbr)
+    var perc = nbr / 5
+    for(i = 0; i < nbr; i++)
     {
-        if(i != 0 && i % 30 == 0)
+        if(i != 0 && i % perc == 0)
             x++;
 
         noiseArr[i] = new Array();
-        for(j = 0; j < 150; j++)
+        for(j = 0; j < nbr; j++)
         {
-            
-            if(j != 0 && j % 30 == 0)
+
+            if(j != 0 && j % perc == 0)
                 y++;
 
-            var mu_x = (i%30) / 30;
+            var mu_x = (i%perc) / perc;
             var mu_2 = (1 - Math.cos(mu_x * Math.PI)) / 2;
 
             var int_x1     = points[x][y] * (1 - mu_2) + points[x+1][y] * mu_2;
             var int_x2     = points[x][y+1] * (1 - mu_2) + points[x+1][y+1] * mu_2;
 
-            var mu_y = (j%30) / 30;
+            var mu_y = (j%perc) / perc;
             var mu_2 = (1 - Math.cos(mu_y * Math.PI)) / 2;
             var int_y = int_x1 * (1 - mu_2) + int_x2 * mu_2;
 
             noiseArr[i][j] = int_y;
         }
         y = 0;
-    }        
+    }
     return(noiseArr);
 }
 
 function flatten(points)
 {
+    var step = 0.1
+    var maxVal = 1
+    var loopSize = maxVal / step
+
     var noiseArr = new Array()
     for(i = 0; i < points.length; i++)
     {
         noiseArr[i] = new Array()
         for(j = 0; j < points[i].length; j++)
         {
-
-            if(points[i][j] < 0.2)
-                noiseArr[i][j] = 0;
-
-            else if(points[i][j] < 0.4)
-                noiseArr[i][j] = 0.2;
-
-            else if(points[i][j] < 0.6)
-                noiseArr[i][j] = 0.4;
-
-            else if(points[i][j] < 0.8)
-                noiseArr[i][j] = 0.6;
-
-            else
-                noiseArr[i][j] = 1;
+          for (k = 0; k <= loopSize; k++) {
+            var val = Math.round(step * k * 10)/10
+            if (val === maxVal) {
+              noiseArr[i][j] = maxVal;
+              break
+            } else if(points[i][j] < val) {
+              noiseArr[i][j] = k;
+              break
+            }
+          }
+          console.log(noiseArr[i][j])
         }
     }
 
